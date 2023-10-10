@@ -1,0 +1,9 @@
+.container{
+    box-sizing: border-box;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px;
+}
+

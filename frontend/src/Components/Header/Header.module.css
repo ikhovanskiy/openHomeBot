@@ -1,0 +1,30 @@
+header {
+    box-sizing: border-box;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background-color: rgb(76, 69, 69);
+}
+
+.iconWrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.iconWrapper > a{
+    display: flex;
+    flex-direction: row;
+}
+
+.icon{
+    height: 40px;
+    width: 40px;
+    color: rgb(231, 234, 234);
+}
+.iconWrapper > a >h4{
+    box-sizing: border-box;
+    color: rgb(231, 234, 234);
+    margin: 0;
+}

@@ -1,0 +1,56 @@
+.container {
+    margin: 10px 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: rgb(66, 66, 66);
+}
+.container > input {
+    margin: 5px 0;
+    width: calc(100% - 40px)
+}
+
+.tickBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    padding: 5px 0;
+}
+
+.tickBar > p {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    color: rgb(207, 87, 87);
+}
+.priceContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.priceContainer > input {
+    margin: 5px 0;
+    width: 50px;
+}
+.priceContainer > svg {
+    margin: auto 0;
+}
+.priceContainer > svg:hover {
+    cursor: pointer;
+}
+
+.dataContainer {
+    display: flex;
+    flex-direction: column;
+}
+.dataWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.dataContainer p {
+    margin: 5px 0;
+}

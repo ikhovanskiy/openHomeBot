@@ -1,0 +1,52 @@
+.container {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 0 50px 0;
+    position: relative;
+}
+
+.wrapper > p{
+    top: 30px;
+    position: absolute;
+    text-align: center;
+    color: rgb(207, 87, 87);
+}
+
+.container > input{
+    margin: 10px 0 ;
+}
+
+.container > button {
+    margin: 10px 0 ;
+}
+
+.itemContainer{
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+}
+
+
+  .itemContainer::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 10px;
+    background-color: rgb(66, 66, 66);
+  }
+  
+  .itemContainer::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(0, 0, 0);;
+  }
+  
+  .itemContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color:  rgb(66, 66, 66);
+  }
