@@ -6,9 +6,6 @@ interface data {
 }
 
 export const logIn = (data:data) => {
-  
-    console.log(BACKEND_API+'auth/login/');    
-
     return fetch(BACKEND_API+'auth/login/', {
       method: 'POST',
       credentials: 'include',

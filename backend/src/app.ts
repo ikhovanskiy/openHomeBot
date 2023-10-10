@@ -20,7 +20,7 @@ dotenv.config({path: ".env"});
 app.set("port", process.env.PORT || 3000);
 app.use(bodyParser.json());
 app.use(cors({
-  origin: "http://192.168.1.34:5173",
+  origin: "http://localhost:5173",
   credentials:  true
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,8 +47,7 @@ app.get("/auth/logout/", userController.logout);
 app.post("/auth/login/", userController.postLogin);
 app.post("/auth/signup/", userController.postSignup);
 
-app.post("/account/profile/update/", passportConfig.isAuthenticated, userController.postUpdateProfile);
-app.get("/account/profile/", passportConfig.isAuthenticated, userController.getProfile);
+app.post("/account/profile/", passportConfig.isAuthenticated, userController.postUpdateProfile);
 
 app.get("/receipts/id/:id/",receiptController.getReceiptbyId);
 app.get("/receipts/",passportConfig.isAuthenticated,receiptController.getUserReceipt);
