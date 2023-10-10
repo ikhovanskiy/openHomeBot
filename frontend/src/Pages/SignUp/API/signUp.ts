@@ -27,6 +27,6 @@ export const signUp = ({email, password, login, first_name, second_name, patrony
     })
     .then(res=> res.json())
     .then(res=> {
-      document.cookie = 'user=' + res.passport.user
+      document.cookie = 'user=' + res.user.id
     })
   }

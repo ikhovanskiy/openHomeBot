@@ -12,6 +12,7 @@ import * as homeController from "./controllers/home.controller";
 import * as receiptController from "./controllers/receipt.controller";
 import { TypeormStore } from "connect-typeorm";
 import * as passportConfig from "./config/passport";
+import ErrorHandler from "./middlewares/ErrorHandler";
 
 const app: express.Application = express();
 
@@ -43,7 +44,7 @@ app.use(passport.session());
 
 app.get("/", homeController.index);
 
-app.get("/auth/logout/", userController.logout);
+app.get("/auth/logout/", userController.postLogout);
 app.post("/auth/login/", userController.postLogin);
 app.post("/auth/signup/", userController.postSignup);
 
@@ -53,5 +54,7 @@ app.get("/account/profile/", passportConfig.isAuthenticated, userController.getP
 app.get("/receipts/id/:id/",receiptController.getReceiptbyId);
 app.get("/receipts/",passportConfig.isAuthenticated,receiptController.getUserReceipt);
 app.post("/receipts/add/",passportConfig.isAuthenticated,receiptController.postAddReceipt);
+
+app.use(ErrorHandler);
 
 export default app;

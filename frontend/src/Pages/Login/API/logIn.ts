@@ -5,9 +5,7 @@ interface data {
   password: string
 }
 
-export const logIn = (data:data) => {
-  
-    console.log(BACKEND_API+'auth/login/');    
+export const logIn = (data:data) => {    
 
     return fetch(BACKEND_API+'auth/login/', {
       method: 'POST',
@@ -22,6 +20,6 @@ export const logIn = (data:data) => {
     })
     .then(res=> res.json())
     .then(res=> {
-      document.cookie = 'user=' + res.passport.user
-      })
+      document.cookie = 'user=' + res.user.id
+      }).catch((err:any)=>{console.log(err)})
   }

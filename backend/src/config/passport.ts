@@ -17,7 +17,7 @@ passport.deserializeUser((id:string,done:any)=>{
         return done(null, user);
     })
     .catch(
-        (err:Error)=>{
+        (err:any)=>{
             return done(err);
         }
     );
@@ -38,7 +38,7 @@ passport.use(new LocalStrategy({usernameField: "email"},(email:string, password:
             }            
             return done(undefined, false, { message: "Пароль не правильный" });
         })
-        .catch((err:Error)=>{
+        .catch((err:any)=>{
             return done(err);
         });
 
@@ -46,7 +46,7 @@ passport.use(new LocalStrategy({usernameField: "email"},(email:string, password:
     }        
     )
     .catch(
-        (err:Error)=>{            
+        (err:any)=>{            
             return done(err);
         }
     );
