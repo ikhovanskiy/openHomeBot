@@ -1,0 +1,44 @@
+.container{
+    width: 400px;
+    min-height: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 30px;
+    background-color: rgb(76, 69, 69);
+    border-radius: 30px;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 30px 0 0 0;
+
+}
+
+.btnBack{
+    margin: 0 10px 0 0;
+}
+
+.wrapper > button {
+    width: 200px;
+}
+
+
+.wrapper > p{
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 60px;
+    text-align: center;
+    color: rgb(207, 87, 87);
+}
+
+.title{
+    margin: 0;
+    text-align: center;
+}
