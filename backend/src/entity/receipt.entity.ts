@@ -17,7 +17,9 @@ export class Receipt{
     @ManyToOne(()=> User, (user)=>user.receipts)
     user?: User;
 
-    @ManyToMany(()=>Item)
+    @ManyToMany(()=>Item,{
+        cascade: true
+    })
     @JoinTable()
     items?: Item[];
 
