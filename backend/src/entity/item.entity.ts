@@ -3,6 +3,7 @@ import {Receipt} from "./receipt.entity";
 import {Producttype} from "./producttype.entity";
 
 @Entity()
+@Unique(["name"])
 export class Item{
     @PrimaryGeneratedColumn("uuid")
     id?: string;
@@ -18,7 +19,4 @@ export class Item{
 
     @ManyToOne(()=>Producttype,(producttype)=>producttype.items)    
     producttype?: Producttype;
-
-    @ManyToMany(()=>Receipt)    
-    receipts?: Receipt[];
 }

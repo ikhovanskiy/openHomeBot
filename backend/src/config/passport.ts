@@ -56,6 +56,5 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
     if (req.isAuthenticated()) {
         return next();
     }
-    res.status(404);
-    res.json({err:"Войдите в систему!"});        
+    res.redirect("/login/");
 };

@@ -16,7 +16,7 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return res.redirect("/");
+        return res.redirect("/auth/login/");
     }
 
     passport.authenticate("local", (err: Error, user: User, info: IVerifyOptions) => {
@@ -29,6 +29,14 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
             res.redirect("/");
         });
     })(req, res, next);
+};
+
+export const getLogin = (req: Request, res: Response): void => {
+    if (req.user) {
+        return res.redirect("/");
+    }
+
+    res.redirect("/auth/login/");
 };
 
 export const logout = (req: Request, res: Response, next: NextFunction): void => {
@@ -82,21 +90,8 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
 
 };
 
-export const getProfile = (req: Request, res: Response): void => {
-    if(!req.user){
-        res.status(404);
-        res.json({err:"Войдите в систему!"});        
-    }
-
-    const user = req.user as User;
-    AppDataSource.manager.findOneBy(User, { id: user.id })    
-    .then((user:User)=>{
-        const {password, ...user_d} = user;
-        res.json(user_d);
-    }).catch((err: Error)=>{
-        res.status(404);        
-        res.json({err:err});
-    });
+export const getAccount = (req: Request, res: Response): void => {
+    res.redirect("/account/profile/");
 };
 
 export const postUpdateProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -106,7 +101,7 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return next(errors);
+        return res.redirect("/account/profile/");
     }
 
     const user = req.user as User;
@@ -134,7 +129,7 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
             
         })
         .then((user: User) => {
-            return next();
+            res.redirect("/");
         })
         .catch((err: Error) => {
             return next(err);

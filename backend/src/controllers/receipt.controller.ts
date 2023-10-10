@@ -73,10 +73,11 @@ export const postAddReceipt = async (req: Request, res: Response, next: NextFunc
         item.quantity = val.quantity;        
         item.producttype = producttype;
         await item_rep.
-            createQueryBuilder("item")            
+            createQueryBuilder()
             .insert()
             .into(Item)
-            .values(item)            
+            .values(item)
+            .onConflict(`(\"name\") DO UPDATE SET name = '${item.name}'`)
             .returning("*")
             .execute();
 
