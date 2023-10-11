@@ -1,6 +1,7 @@
 import { AppDataSource } from "../database";
 import { Request, Response, NextFunction } from "express";
 import { User, Receipt, Item, Producttype, Retailplace } from "../entity";
+import { receiptLoader } from "../helpers";
 
 export const getReceiptbyId = (req: Request, res: Response, next: NextFunction): void => {
     try {
@@ -59,7 +60,7 @@ export const postAddReceipt = async (req: Request, res: Response, next: NextFunc
 
         const receipt = new Receipt();
         receipt.user = req.user;
-
+        
         receipt.items = await Promise.all(req.body.items.map(async (val: any) => {
 
             const producttype = new Producttype();
@@ -108,6 +109,71 @@ export const postAddReceipt = async (req: Request, res: Response, next: NextFunc
         await AppDataSource.manager.save(receipt);
 
         res.end();
+    } catch (err: any) {
+        next(err);
+    }
+};
+
+export const postReceiptsByQR = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const qqrrow = req.body.qrraw as string;        
+        const receiptdata = await receiptLoader(qqrrow);
+        const code = receiptdata.code as number;
+        
+        if (code != 1) {
+            res.json(receiptdata);
+        }        
+
+        const producttype_rep = AppDataSource.getRepository(Producttype);
+        const item_rep = AppDataSource.getRepository(Item);
+        const retailplace_rep = AppDataSource.getRepository(Retailplace);
+
+        const receipt = new Receipt();
+        receipt.user = req.user;
+
+        receipt.items = await Promise.all(receiptdata.data.json.items.map(async (val: any) => {            
+            
+            const producttype = await producttype_rep.findOneBy({id:val.productType});
+            
+            const item = new Item();
+            item.price = val.price;
+            item.name = val.name;
+            item.quantity = val.quantity;
+            item.producttype = producttype;
+            await item_rep.
+                createQueryBuilder("item")
+                .insert()
+                .into(Item)
+                .values(item)
+                .returning("*")
+                .execute();
+
+
+            return item;
+        }));
+
+        const retailplace = new Retailplace();
+        
+        retailplace.name = receiptdata.data.json.retailPlace;
+        retailplace.address = receiptdata.data.json.metadata.address;
+
+        retailplace_rep.
+            createQueryBuilder()
+            .insert()
+            .into(Retailplace)
+            .values(retailplace)
+            .onConflict(`(\"name\") DO UPDATE SET name = '${retailplace.name}'`)
+            .returning("*")
+            .execute();
+
+        receipt.total_sum = receiptdata.data.json.totalSum;
+        receipt.retailplace = retailplace;
+
+        await AppDataSource.manager.save(receipt);
+
+        res.end();
+
+
     } catch (err: any) {
         next(err);
     }

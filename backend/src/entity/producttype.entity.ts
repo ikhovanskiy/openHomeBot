@@ -4,8 +4,8 @@ import {Item} from "./item.entity";
 @Entity()
 @Unique(["name"])
 export class Producttype{
-    @PrimaryGeneratedColumn("uuid")
-    id?: string;
+    @PrimaryGeneratedColumn()
+    id?: number;
     
     @Column({type:"text"})
     name?: string;
