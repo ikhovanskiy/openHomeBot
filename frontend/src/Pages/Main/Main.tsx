@@ -6,8 +6,8 @@ import Receipts from './Components/Receipts/Receipts'
 export default function Main() {
   useAutorise()
   return (
-    <>
-     <Header />
+    <>    
+     <Header />    
      <Receipts />
     </>
   )

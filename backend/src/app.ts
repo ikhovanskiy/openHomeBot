@@ -12,6 +12,7 @@ import * as homeController from "./controllers/home.controller";
 import * as receiptController from "./controllers/receipt.controller";
 import { TypeormStore } from "connect-typeorm";
 import * as passportConfig from "./config/passport";
+import {ErrorHandler} from "./middlewares";
 
 const app: express.Application = express();
 
@@ -19,10 +20,13 @@ dotenv.config({path: ".env"});
 
 app.set("port", process.env.PORT || 3000);
 app.use(bodyParser.json());
+<<<<<<< HEAD
+=======
 app.use(cors({
   origin: "http://localhost:5173",
   credentials:  true
 }));
+>>>>>>> master
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -43,7 +47,7 @@ app.use(passport.session());
 
 app.get("/", homeController.index);
 
-app.get("/auth/logout/", userController.logout);
+app.get("/auth/logout/", userController.postLogout);
 app.post("/auth/login/", userController.postLogin);
 app.post("/auth/signup/", userController.postSignup);
 
@@ -52,5 +56,8 @@ app.post("/account/profile/", passportConfig.isAuthenticated, userController.pos
 app.get("/receipts/id/:id/",receiptController.getReceiptbyId);
 app.get("/receipts/",passportConfig.isAuthenticated,receiptController.getUserReceipt);
 app.post("/receipts/add/",passportConfig.isAuthenticated,receiptController.postAddReceipt);
+app.post("/receipts/addByQr/",passportConfig.isAuthenticated,receiptController.postReceiptsByQR);
+
+app.use(ErrorHandler);
 
 export default app;

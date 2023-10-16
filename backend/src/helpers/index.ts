@@ -1,0 +1,1 @@
+export {default as receiptLoader} from "./receiptLoader";
