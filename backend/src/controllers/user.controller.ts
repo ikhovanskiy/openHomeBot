@@ -16,8 +16,19 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
 
         const errors = validationResult(req);
 
+<<<<<<< HEAD
         if (!errors.isEmpty()) {
             res.json({ err: errors });
+=======
+    if (!errors.isEmpty()) {
+        return res.redirect("/auth/login/");
+    }
+
+    passport.authenticate("local", (err: Error, user: User, info: IVerifyOptions) => {
+        if (err) { return next(err); }
+        if (!user) {
+            return res.json(info);
+>>>>>>> master
         }
 
         passport.authenticate("local", (err: any, user: User, info: IVerifyOptions) => {
@@ -35,6 +46,7 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
     }
 };
 
+<<<<<<< HEAD
 export const postLogout = (req: Request, res: Response, next: NextFunction): void => {
     try {
         req.logout((err: any) => {
@@ -44,6 +56,21 @@ export const postLogout = (req: Request, res: Response, next: NextFunction): voi
     } catch (err: any) {
         next(err);
     }
+=======
+export const getLogin = (req: Request, res: Response): void => {
+    if (req.user) {
+        return res.redirect("/");
+    }
+
+    res.redirect("/auth/login/");
+};
+
+export const logout = (req: Request, res: Response, next: NextFunction): void => {
+    req.logout((err: Error) => {
+        if (err) { return next(err); }
+        res.redirect("/");
+    });
+>>>>>>> master
 };
 
 export const postSignup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -93,6 +120,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     }
 };
 
+<<<<<<< HEAD
 export const getProfile = (req: Request, res: Response, next: NextFunction): void => {
     try {
         if (!req.user) {
@@ -111,6 +139,10 @@ export const getProfile = (req: Request, res: Response, next: NextFunction): voi
     } catch (err: any) {
         next(err);
     }
+=======
+export const getAccount = (req: Request, res: Response): void => {
+    res.redirect("/account/profile/");
+>>>>>>> master
 };
 
 export const postUpdateProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -120,6 +152,7 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
 
         const errors = validationResult(req);
 
+<<<<<<< HEAD
         if (!errors.isEmpty()) {
             res.json({ err: errors });
         }
@@ -157,5 +190,41 @@ export const postUpdateProfile = async (req: Request, res: Response, next: NextF
     } catch (err: any) {
         next(err);
     }
+=======
+    if (!errors.isEmpty()) {
+        return res.redirect("/account/profile/");
+    }
+
+    const user = req.user as User;
+
+    AppDataSource.manager.findOneBy(User, { id: user.id })
+        .then((user: User) => {
+            return bcrypt
+                .hash(req.body.password, 10)
+                .then((hash: string) => {
+                    user.password = hash;
+                })
+                .then(()=>{
+                    user.email = req.body.email;
+                    user.login = req.body.login;
+                    user.first_name = req.body.first_name;
+                    user.second_name = req.body.second_name;
+                    user.patronymic = req.body.patronymic;
+                    user.phone = req.body.phone;
+
+                    return AppDataSource.manager.save(user);
+                })
+                .catch((err: Error) => {
+                    next(err);
+                });
+            
+        })
+        .then((user: User) => {
+            res.redirect("/");
+        })
+        .catch((err: Error) => {
+            return next(err);
+        });
+>>>>>>> master
 };
 

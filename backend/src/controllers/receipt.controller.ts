@@ -104,6 +104,7 @@ export const postAddReceipt = async (req: Request, res: Response, next: NextFunc
             .returning("*")
             .execute();
 
+<<<<<<< HEAD
         receipt.total_sum = req.body.receipt.total_sum;
         receipt.retailplace = retailplace;
         await AppDataSource.manager.save(receipt);
@@ -163,6 +164,19 @@ export const postReceiptsByQR = async (req: Request, res: Response, next: NextFu
             .into(Retailplace)
             .values(retailplace)
             .onConflict(`(\"name\") DO UPDATE SET name = '${retailplace.name}'`)
+=======
+        const item = new Item();
+        item.price = val.price;
+        item.name = val.name;
+        item.quantity = val.quantity;        
+        item.producttype = producttype;
+        await item_rep.
+            createQueryBuilder()
+            .insert()
+            .into(Item)
+            .values(item)
+            .onConflict(`(\"name\") DO UPDATE SET name = '${item.name}'`)
+>>>>>>> master
             .returning("*")
             .execute();
 
