@@ -1,1 +1,0 @@
-export const BACKEND_API:string = 'http://192.168.1.34:3000/'

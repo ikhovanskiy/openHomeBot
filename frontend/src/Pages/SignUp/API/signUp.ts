@@ -1,5 +1,3 @@
-import { BACKEND_API } from "../../../config"
-
 interface data {
   email:string, 
   password:string, 
@@ -10,7 +8,7 @@ interface data {
 }
 
 export const signUp = ({email, password, login, first_name, second_name, patronymic}:data) => {
-    return fetch(BACKEND_API+'auth/signup/', {
+    return fetch('/api/auth/signup/', {
       method: 'POST',
       credentials: 'include',
       headers: {

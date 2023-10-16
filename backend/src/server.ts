@@ -2,6 +2,7 @@ import errorHandler from "errorhandler";
 import app from "./app";
 import fs from "fs";
 import dotenv from "dotenv";
+
 dotenv.config({path: ".env"});
 
 if (process.env.NODE_ENV === "development") {

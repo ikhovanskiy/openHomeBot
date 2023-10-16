@@ -136,7 +136,7 @@ export const postReceiptsByQR = async (req: Request, res: Response, next: NextFu
             const producttype = await producttype_rep.findOneBy({id:val.productType});
             
             const item = new Item();
-            item.price = val.price;
+            item.price = val.price * 0.01;
             item.name = val.name;
             item.quantity = val.quantity;
             item.producttype = producttype;
@@ -166,7 +166,7 @@ export const postReceiptsByQR = async (req: Request, res: Response, next: NextFu
             .returning("*")
             .execute();
 
-        receipt.total_sum = receiptdata.data.json.totalSum;
+        receipt.total_sum = receiptdata.data.json.totalSum * 0.01;
         receipt.retailplace = retailplace;
 
         await AppDataSource.manager.save(receipt);

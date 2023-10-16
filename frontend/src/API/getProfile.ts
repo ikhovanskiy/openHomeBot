@@ -1,7 +1,5 @@
-import { BACKEND_API } from "../config"
-
 export const getProfile = () => {
-    fetch(BACKEND_API+'account/profile/', {
+    fetch('/api/account/profile/', {
       method: 'POST',
       credentials: 'include',
       headers: {

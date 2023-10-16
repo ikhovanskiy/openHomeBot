@@ -1,8 +1,7 @@
-import { BACKEND_API } from "../../../../../config"
 import { IItem, IReceipt } from "../../../../../types/types"
 
 export const addReceipt = (receipt:IReceipt, items:IItem[]) => {
-    return fetch(BACKEND_API+'receipts/add/', {
+    return fetch('/api/receipts/add/', {
       method: 'POST',
       credentials: 'include',
       headers: {
