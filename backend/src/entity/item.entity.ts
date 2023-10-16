@@ -3,7 +3,6 @@ import {Receipt} from "./receipt.entity";
 import {Producttype} from "./producttype.entity";
 
 @Entity()
-@Unique(["name"])
 export class Item{
     @PrimaryGeneratedColumn("uuid")
     id?: string;

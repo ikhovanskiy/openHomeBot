@@ -20,13 +20,6 @@ dotenv.config({path: ".env"});
 
 app.set("port", process.env.PORT || 3000);
 app.use(bodyParser.json());
-<<<<<<< HEAD
-=======
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials:  true
-}));
->>>>>>> master
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
