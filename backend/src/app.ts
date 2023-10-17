@@ -1,8 +1,6 @@
 import express, {Request, Response,NextFunction} from "express";
-import path from "path";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import cors from "cors";
 import {AppDataSource} from "./database";
 import {User,Session} from "./entity";
 import passport from "passport";
@@ -13,6 +11,8 @@ import * as receiptController from "./controllers/receipt.controller";
 import { TypeormStore } from "connect-typeorm";
 import * as passportConfig from "./config/passport";
 import {ErrorHandler} from "./middlewares";
+
+//Работает!
 
 const app: express.Application = express();
 
