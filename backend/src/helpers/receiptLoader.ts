@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import {receiptDataExt} from "../interfaces";
 
+dotenv.config({path: ".env"});
 const receiptLoader = async (qrString:string):Promise<receiptDataExt>=>{
     const data = {
         token: process.env.RECEIPTS_API_KEY,

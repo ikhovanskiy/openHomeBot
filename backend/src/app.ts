@@ -2,11 +2,10 @@ import express, {Request, Response,NextFunction} from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import {AppDataSource} from "./database";
-import {User,Session} from "./entity";
+import {Session} from "./entity";
 import passport from "passport";
 import session from "express-session";
 import * as userController from "./controllers/user.controller";
-import * as homeController from "./controllers/home.controller";
 import * as receiptController from "./controllers/receipt.controller";
 import { TypeormStore } from "connect-typeorm";
 import * as passportConfig from "./config/passport";
@@ -35,8 +34,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.get("/", homeController.index);
 
 app.get("/auth/logout/", userController.postLogout);
 app.post("/auth/login/", userController.postLogin);

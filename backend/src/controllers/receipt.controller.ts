@@ -2,6 +2,7 @@ import { AppDataSource } from "../database";
 import { Request, Response, NextFunction } from "express";
 import { User, Receipt, Item, Producttype, Retailplace } from "../entity";
 import { receiptLoader } from "../helpers";
+import { Between, Like } from "typeorm";
 
 export const getReceiptbyId = (req: Request, res: Response, next: NextFunction): void => {
     try {
@@ -32,14 +33,31 @@ export const getReceiptbyId = (req: Request, res: Response, next: NextFunction):
 export const getUserReceipt = (req: Request, res: Response, next: NextFunction): void => {
     try {
         const user = req.user as User;
+        const urlParams = req.query;                
+
+        const date_from_default = new Date();
+        date_from_default.setDate(date_from_default.getDate() - 14);        
+
+        const date_from = urlParams.date_from ? new Date(urlParams.date_from as string):date_from_default;                 
+        date_from.setUTCHours(0,0,0,0);        
+        
+        const date_to = urlParams.date_to ? new Date(urlParams.date_to as string):new Date();                
+        date_to.setUTCHours(23,59,59,59);        
+        
+        const qParams = {
+            user: {id:user.id},
+            items:{},
+            retailplace:{},
+            date_time: Between(date_from,date_to)
+        };     
+        
+        qParams.user = {id:user.id};
+        qParams.items = urlParams.item_name ? {name: Like(`%${urlParams.item_name}%`)}:{};
+        qParams.retailplace = urlParams.retailplace ? {name: Like(`%${urlParams.retailplace}%`)}:{};
+                
         AppDataSource.manager.find(Receipt, {
             relations: ["items", "retailplace", "items.producttype",],
-            where: {
-                user: {
-                    id: user.id
-                }
-            }
-
+            where: qParams
         })
             .then((receipts: Receipt[]) => {
                 res.json(receipts);
