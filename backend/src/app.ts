@@ -12,8 +12,6 @@ import { TypeormStore } from "connect-typeorm";
 import * as passportConfig from "./config/passport";
 import {ErrorHandler} from "./middlewares";
 
-//Работает!
-
 const app: express.Application = express();
 
 dotenv.config({path: ".env"});
