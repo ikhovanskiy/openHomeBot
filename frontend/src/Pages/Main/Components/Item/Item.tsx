@@ -9,7 +9,7 @@ interface Data {
 export default function Item({data} :Data ) {
     const name = data.name
     const price = data.price
-    const producttype = data.producttype.name
+    const producttype = data.producttype?.name
     const quantity = data.quantity
 
   return (
