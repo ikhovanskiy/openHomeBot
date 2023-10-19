@@ -34,21 +34,17 @@ export const getUserReceipt = (req: Request, res: Response, next: NextFunction):
     try {
         const user = req.user as User;
         const urlParams = req.query;                
-
-        const date_from_default = new Date();
-        date_from_default.setDate(date_from_default.getDate() - 14);        
-
-        const date_from = urlParams.date_from ? new Date(urlParams.date_from as string):date_from_default;                 
-        date_from.setUTCHours(0,0,0,0);        
-        
-        const date_to = urlParams.date_to ? new Date(urlParams.date_to as string):new Date();                
-        date_to.setUTCHours(23,59,59,59);        
-        
+        const currentDate = Date.now();
+                
+        const twoW = (24*60*60*1000) * 14;
+        const date_from = +(urlParams.date_from ? urlParams.date_from:currentDate-twoW);                         
+        const date_to = +(urlParams.date_to? urlParams.date_to:currentDate);                
+                
         const qParams = {
             user: {id:user.id},
             items:{},
             retailplace:{},
-            date_time: Between(date_from,date_to)
+            date_time: Between(new Date(date_from),new Date(date_to))
         };     
         
         qParams.user = {id:user.id};
