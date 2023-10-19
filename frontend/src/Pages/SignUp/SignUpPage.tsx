@@ -10,9 +10,9 @@ export default function SignUpPage() {
     const [data, setData] = useState({  "email": "",
                                         "password": "",
                                         "login": "",
-                                        "first_name": "tester",
-                                        "second_name": "tester",
-                                        "patronymic": "tester"
+                                        "first_name": "",
+                                        "second_name": "",
+                                        "patronymic": ""
                                         })
     const [errorMessage, setErrorMessage] = useState('')
     const [btnText, setBtnText] = useState('Зарегистрироваться')
@@ -57,19 +57,19 @@ export default function SignUpPage() {
             name="first_name" 
             placeholder="Имя" 
             onChange={(e)=>setData({...data, first_name:e.target.value})} 
-            defaultValue='tester'/>
+            defaultValue=''/>
 
         <input type="text" 
             name="second_name" 
             placeholder="Фамилия" 
             onChange={(e)=>setData({...data, second_name:e.target.value})} 
-            defaultValue='tester'/>
+            defaultValue=''/>
 
         <input type="text" 
             name="patronymic" 
             placeholder="Отчество" 
             onChange={(e)=>setData({...data, patronymic:e.target.value })} 
-            defaultValue='tester'/>
+            defaultValue=''/>
 
         <div className={styles.wrapper}>
             

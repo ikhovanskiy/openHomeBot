@@ -5,38 +5,45 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setReceipts } from '../../../../store/slices/receiptsSlice'
 import Receipt from '../Receipt/Receipt'
 
-import { PiCaretDoubleUpBold } from 'react-icons/pi'
-
 import styles from './MyReceipts.module.css'
+import Meta from '../Meta/Meta'
 
 export default function MyReceipts() {
     const receipts = useSelector((state: RootState) => state.receipts.value)
+    const searchParams = useSelector((state: RootState) => state.receipts.searchParams)
     const dispatch = useDispatch()
 
     const myRef= useRef(null) as unknown as MutableRefObject<HTMLDivElement>
 
     useEffect(() => {
-        getMyReceipts().then((data)=>{
+        getMyReceipts(searchParams).then((data)=>{
             dispatch(setReceipts(data))
         })
-    }, [])
+    }, [searchParams])
+
     useEffect(() => {
       setTimeout(()=> myRef.current?.scrollIntoView())
-  }, [receipts])
+    }, [receipts])
     
+    
+    const handelerClick = () => {
+      setTimeout(() => myRef.current.scrollIntoView())
+    }
+
     
 
-  return receipts.length > 0 ?(
+  return (
+    <>
+    <Meta handelerClick = {handelerClick} />
     <div className={styles.container}>
       
       {receipts.map((data, i) =><Receipt key={i} data={data} />)}
-      <div ref={myRef}></div>   
-      <button 
-        onClick={()=>setTimeout(() => myRef.current.scrollIntoView())}
-        className={styles.upBtn} >
-              <PiCaretDoubleUpBold />
-      </button> 
+      <div ref={myRef}></div>  
+      
+      
     </div>
     
-  ) : (<div></div>)
+    </>
+    
+  ) 
 }

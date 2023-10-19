@@ -6,7 +6,6 @@ import { CiReceipt } from "react-icons/ci";
 
 import styles from './Header.module.css'
 
-
 export default function Header() {
 
   const nav = useNavigate()
@@ -17,6 +16,7 @@ export default function Header() {
         nav('/login')
     })
   }
+  
 
   return (
     <header className={styles.header}>
@@ -26,10 +26,21 @@ export default function Header() {
                 <h4>OpenHomeBot</h4>
               </Link>
           </div>
+          <div>
+          <Link to='/profile'>
+            <button>
+               
+                  Мой профиль 
+                
+            </button>
+          </Link>
+          <Link to=''>
+            <button onClick={handleClick}>
+                  Выйти
+            </button>
+          </Link>
+          </div>
           
-          <button onClick={handleClick}>
-              Выйти
-          </button>
     </header>
   )
 }

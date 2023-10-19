@@ -13,7 +13,8 @@ export interface ReceiptsState {
     items: IItem[]
     }>,
   items: IItem[],
-  total_sum: number
+  total_sum: number,
+  searchParams: string
 }
 
 
@@ -43,7 +44,8 @@ interface ISetReceipts {
 const initialState: ReceiptsState = {
   value: [],
   items: [],
-  total_sum: 0
+  total_sum: 0,
+  searchParams: ''
 }
 const sumItems = (arr:IItem[]) => {
   return arr.reduce((a, b) => {return {price: Number(a.price)*a.quantity + Number(b.price)*b.quantity, quantity: 1}},{price:0,quantity:0}).price 
@@ -71,11 +73,15 @@ export const receiptsSlice = createSlice({
     clearItems: (state) => {
       state.items = []
       state.total_sum = 0
-    }
+    },
+    setSearchParams: (state, action: PayloadAction<string>) => {
+      state.searchParams = action.payload
+    },
+
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setReceipts, addNewItem, deleteItem, updateItem, clearItems } = receiptsSlice.actions
+export const { setReceipts, addNewItem, deleteItem, updateItem, clearItems , setSearchParams} = receiptsSlice.actions
 
 export default receiptsSlice.reducer
