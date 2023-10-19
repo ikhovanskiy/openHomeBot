@@ -28,3 +28,12 @@ header {
     color: rgb(231, 234, 234);
     margin: 0;
 }
+
+header > div > button {
+    height: 100%;
+    margin: 0 10px;
+    box-sizing: border-box;
+}
+header > div > button > a {
+    color: rgb(231, 234, 234);
+}

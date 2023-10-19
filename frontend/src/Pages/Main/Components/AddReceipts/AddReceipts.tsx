@@ -4,12 +4,13 @@ import AddItem from '../AddItem/AddItem'
 import { addNewItem, clearItems, setReceipts } from '../../../../store/slices/receiptsSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { getMyReceipts } from '../MyReceipts/API/getMyReceipts'
-
+import QrReader from 'react-qr-scanner'
 
 import styles from './AddReceipts.module.css'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { AiFillCamera, AiOutlinePlus } from 'react-icons/ai'
+import { BiCameraOff } from 'react-icons/bi'
 import { RootState } from '../../../../store/store'
-
+import Modal from '../../../../common/Modal'
 
 export default function AddReceipts() {
   const items = useSelector((state: RootState) => state.receipts.items)
@@ -39,6 +40,8 @@ export default function AddReceipts() {
   const [status, setStatus] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [receipt, setReceipt] = useState(defaultReceipt)
+  const [isModaulActive, setIsModaulActive] = useState(false);
+  const [isWebCamAvalable, setIsWebCamAvalable] = useState(false);
 
   const myRef = useRef(null) as unknown as MutableRefObject<HTMLDivElement>
 
@@ -70,6 +73,38 @@ export default function AddReceipts() {
     .catch(()=> setBtnText('Error'))
   }
   
+  const handlerQrPopUp = () => {
+    isModaulActive ? setIsModaulActive(false) : setIsModaulActive(true)
+  }
+  const handleModalClose = () => {
+    if (!isModaulActive) return
+    setIsModaulActive(false)
+  }
+  const handleError = (err) => {
+    console.error(err)
+  }
+  const handleScan = (data) => {
+    if (data){
+      handleModalClose()
+      console.log(data)
+    }
+    
+  };
+
+
+  navigator.getMedia = ( navigator.getUserMedia || // use the proper vendor prefix
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia ||
+    navigator.msGetUserMedia);
+
+    navigator.getMedia({video: true}, function() {
+      setIsWebCamAvalable(true)
+    }, function() {
+      setIsWebCamAvalable(false)
+    // webcam is not available
+    });
+
+
   return !status ? (
     <div >
       <button onClick={()=>setStatus(true)}>
@@ -85,7 +120,9 @@ export default function AddReceipts() {
                               setStatus(false)}}>
             Назад
         </button>
-
+        <button onClick={handlerQrPopUp}>
+          <AiFillCamera />
+        </button>
         <button onClick={handleClick}>
             {btnText}
         </button>
@@ -117,7 +154,26 @@ export default function AddReceipts() {
         {items.map((el,i) => {if(el) { return <AddItem key={i} data={el} id={i}/>}})}
         <div ref={myRef}></div> 
       </div>
-          
+        {!!isModaulActive && <Modal onClose={handleModalClose}>
+              
+              {
+                isWebCamAvalable && <>
+                <p className={styles.popupTitle}>Отсканируйте QR-code</p>
+                <QrReader
+                className={styles.qrReader}
+                delay={300}
+                onError={handleError}
+                onScan={handleScan}
+              />
+                </>
+              }
+              {
+                !isWebCamAvalable && <>
+                  <p className={styles.popupTitle}> Пожалуйста разрешите камеру на странице</p>
+                  <BiCameraOff className={styles.noCamIcon}/>
+                  </>
+              }
+            </Modal>}
     </div> 
   ) 
 }

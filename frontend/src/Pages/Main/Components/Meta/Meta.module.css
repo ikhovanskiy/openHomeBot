@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 30px;
+}
+.container > input {
+    margin: 0 10px;
+}
+.container > button {
+    margin: 0 10px;
+}
+
+.calendarWrapper{
+    position: relative;
+}
+
+.calendar{
+    position: absolute;
+    top:120%;
+    right: 0;
+}

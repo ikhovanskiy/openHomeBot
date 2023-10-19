@@ -5,9 +5,14 @@ import { Link } from 'react-router-dom'
 import { CiReceipt } from "react-icons/ci";
 
 import styles from './Header.module.css'
+import { setProfile } from '../../store/slices/profileSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 
 export default function Header() {
+
+  const profile = useSelector((state: RootState) => state.profile.value)
 
   const nav = useNavigate()
 
@@ -17,6 +22,7 @@ export default function Header() {
         nav('/login')
     })
   }
+  
 
   return (
     <header className={styles.header}>
@@ -26,10 +32,22 @@ export default function Header() {
                 <h4>OpenHomeBot</h4>
               </Link>
           </div>
+          <div>
+            <button>
+                <Link to='/profile'>
+                  Мой профиль 
+                </Link>
+            </button>
+
+            
+            <button onClick={handleClick}>
+                <Link>
+                  Выйти
+                </Link>
+                
+            </button>
+          </div>
           
-          <button onClick={handleClick}>
-              Выйти
-          </button>
     </header>
   )
 }

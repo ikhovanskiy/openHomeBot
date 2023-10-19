@@ -1,5 +1,5 @@
 .container {
-    width: 250px;
+    width: 300px;
     display: flex;
     flex-direction: column;
 }
@@ -49,4 +49,19 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
     border-radius: 10px;
     background-color:  rgb(66, 66, 66);
+  }
+
+  .qrReader{
+    margin: 0 auto;
+    width: calc(100% - 20px);
+    border-radius: 10px;
+  }
+
+  .popupTitle{
+    text-align: center;
+  }
+
+  .noCamIcon{
+    height: 100%;
+    width: 100%;
   }

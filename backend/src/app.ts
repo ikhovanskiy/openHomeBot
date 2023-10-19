@@ -39,7 +39,7 @@ app.get("/auth/logout/", userController.postLogout);
 app.post("/auth/login/", userController.postLogin);
 app.post("/auth/signup/", userController.postSignup);
 
-app.post("/account/profile/", passportConfig.isAuthenticated, userController.postUpdateProfile);
+app.get("/account/profile/", passportConfig.isAuthenticated, userController.getProfile);
 
 app.get("/receipts/id/:id/",receiptController.getReceiptbyId);
 app.get("/receipts/",passportConfig.isAuthenticated,receiptController.getUserReceipt);

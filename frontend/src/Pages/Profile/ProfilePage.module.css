@@ -1,0 +1,10 @@
+.container {
+    height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 1fr;
+    padding: 30px;
+}
+.container h1 {
+    grid-column: span 2;
+}
