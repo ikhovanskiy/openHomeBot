@@ -5,14 +5,8 @@ import { Link } from 'react-router-dom'
 import { CiReceipt } from "react-icons/ci";
 
 import styles from './Header.module.css'
-import { setProfile } from '../../store/slices/profileSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
-
 
 export default function Header() {
-
-  const profile = useSelector((state: RootState) => state.profile.value)
 
   const nav = useNavigate()
 
@@ -33,19 +27,18 @@ export default function Header() {
               </Link>
           </div>
           <div>
+          <Link to='/profile'>
             <button>
-                <Link to='/profile'>
+               
                   Мой профиль 
-                </Link>
-            </button>
-
-            
-            <button onClick={handleClick}>
-                <Link>
-                  Выйти
-                </Link>
                 
             </button>
+          </Link>
+          <Link to=''>
+            <button onClick={handleClick}>
+                  Выйти
+            </button>
+          </Link>
           </div>
           
     </header>

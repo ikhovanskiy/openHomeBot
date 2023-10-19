@@ -9,7 +9,7 @@ import styles from './Login.module.css'
 
 export default function Login() {
 
-  const [data, setData] = useState({email: 'admin@gmail.com', password: 'tester123'})
+  const [data, setData] = useState({email: '', password: 'tester123'})
   const [btnText, setBtnText] = useState('Войти')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -18,7 +18,7 @@ export default function Login() {
   useAutorise()
 
   const handleClick = () => {
-
+    
     setBtnText('Загрузка...')
 
     logIn(data)
@@ -40,7 +40,7 @@ export default function Login() {
                   name="Email" 
                   placeholder="Email" 
                   onChange={(e)=>setData({...data, email: e.target.value})} 
-                  defaultValue='admin@gmail.com'/>
+                  defaultValue=''/>
           <input type="password" 
                   name="Password" 
                   placeholder="Password" 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiFillCalendar, AiOutlineClose, AiOutlineSearch } from 'react-icons/ai'
 import { PiCaretDoubleUpBold } from 'react-icons/pi'
 import 'react-date-range/dist/styles.css'; // main style file
@@ -6,7 +6,6 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
 
 
-import type { FC } from "react";
 import type { Range } from "react-date-range";
 import { useDispatch } from 'react-redux';
 import { setSearchParams } from '../../../../store/slices/receiptsSlice';
@@ -54,22 +53,23 @@ export default function Meta({handelerClick}:Data) {
                     break
             }
         }
-        console.log(params)
         dispatch(setSearchParams(params))
     },[searchPlace,searchItem,searchStartData,searchEndData])
 
-    const dateChange = (item) => {
+    const dateChange = (item: { selection: Range; }) => {
         setSelectionRange([item.selection])
-        const dateStart = Date.parse([item.selection][0].startDate)
+
+        // @ts-ignore
+        const dateStart = Date.parse([item.selection][0].startDate )
+        // @ts-ignore
         const dateEnd = Date.parse([item.selection][0].endDate)
         if (dateStart === dateEnd) {
             setSearchStartData(dateStart)
-            setSearchEndData('')
+            setSearchEndData(0)
         } else{
             setSearchStartData(dateStart)
             setSearchEndData(dateEnd)
         }
-        console.log(dateStart, dateEnd)
     }
   
     const closeClick = () => {
@@ -85,9 +85,7 @@ export default function Meta({handelerClick}:Data) {
             <AiOutlineSearch />
         </button>
         
-        <button 
-          onClick={handelerClick}
-          >
+        <button onClick={()=>handelerClick()}>
                 <PiCaretDoubleUpBold />
         </button> 
     </div>
@@ -110,6 +108,7 @@ export default function Meta({handelerClick}:Data) {
             <DateRange
             className={styles.calendar}
             editableDateInputs={true}
+            //@ts-ignore
             onChange={dateChange}
             moveRangeOnFirstSelection={false}
             ranges={selectionRange}
@@ -120,9 +119,7 @@ export default function Meta({handelerClick}:Data) {
             <AiOutlineClose />
         </button>
 
-        <button 
-          onClick={handelerClick}
-           >
+        <button onClick={()=>handelerClick()} >
                 <PiCaretDoubleUpBold />
         </button> 
     </div>

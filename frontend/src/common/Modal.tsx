@@ -17,7 +17,7 @@ type Props = {
 };
 
 const Modal = (props: Props) => {
-  const { title, onClose, children } = props;
+  const { onClose, children } = props;
 
   const rootRef = useRef<HTMLDivElement>(null);
   const [isMounted, setMounted] = useState(false);

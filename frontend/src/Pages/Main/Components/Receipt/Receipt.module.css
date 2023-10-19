@@ -4,6 +4,7 @@
     padding: 10px;
     box-sizing: border-box;
     border-radius: 10px;
+    max-width: 50vw;
 }
 .metaWrapper > p {
     margin: 5px 0;

@@ -5,8 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setReceipts } from '../../../../store/slices/receiptsSlice'
 import Receipt from '../Receipt/Receipt'
 
-import { PiCaretDoubleUpBold } from 'react-icons/pi'
-
 import styles from './MyReceipts.module.css'
 import Meta from '../Meta/Meta'
 

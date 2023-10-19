@@ -9,19 +9,22 @@ function useAutorise() {
 
     const dispatch = useDispatch()
 
-    fetch('/api/account/profile/')
-            .then(res => res.json())
-            .then(res=>{
-              dispatch(setProfile(res))
-              
-            })
-            .catch(e=> console.log(e))
+  
 
 
     useEffect(()=>{
-        if (document.cookie === '' || document.cookie === 'user='){
+        if (document.cookie.split(' ').find(el=> el==='user=')){
             setTimeout(()=>navigate('/login'),0)
-            return}
+            return} else{
+                fetch('/api/account/profile/')
+                .then(res => res.json())
+                .then(res=>{
+                  dispatch(setProfile(res))                  
+                })
+                .catch(e=> {
+                    setTimeout(()=>navigate('/login'),0)
+                    console.log(e)})
+            }
         if (location.pathname === '/login') {
             setTimeout(()=>navigate('/'),0)
             return

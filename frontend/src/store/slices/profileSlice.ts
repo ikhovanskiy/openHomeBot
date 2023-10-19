@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { IItem, IProfile } from '../../types/types'
+import { IProfile } from '../../types/types'
 
 export interface ProfileState {
     value: IProfile

@@ -6,6 +6,7 @@
 }
 .container > input {
     margin: 0 10px;
+    width: 200px;
 }
 .container > button {
     margin: 0 10px;
