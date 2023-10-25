@@ -21,11 +21,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const repo = AppDataSource.getRepository(Session);
+
 app.use(session({ 
-  secret: "SECRET",
-  resave: false,
-  saveUninitialized: true,
+  secret: "SECRET",  
   cookie: { secure: false },
+  saveUninitialized: false,
   store: new TypeormStore({
     cleanupLimit: 2,
     ttl: 86400,
@@ -45,6 +45,8 @@ app.get("/receipts/id/:id/",receiptController.getReceiptbyId);
 app.get("/receipts/",passportConfig.isAuthenticated,receiptController.getUserReceipt);
 app.post("/receipts/add/",passportConfig.isAuthenticated,receiptController.postAddReceipt);
 app.post("/receipts/addByQr/",passportConfig.isAuthenticated,receiptController.postReceiptsByQR);
+
+app.get("/",passportConfig.isAuthenticated,(res:Response,req:Request)=>res.json("test"));
 
 app.use(ErrorHandler);
 

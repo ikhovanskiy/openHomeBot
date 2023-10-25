@@ -1,7 +1,6 @@
 import {useState} from 'react'
 import { logIn } from './API/logIn'
 import { useNavigate } from 'react-router-dom'
-import useAutorise from '../../hooks/useAutorise'
 import { Link } from 'react-router-dom'
 
 
@@ -13,18 +12,16 @@ export default function Login() {
   const [btnText, setBtnText] = useState('Войти')
   const [errorMessage, setErrorMessage] = useState('')
 
-  const nav = useNavigate()
-
-  useAutorise()
+  const navigate = useNavigate()
 
   const handleClick = () => {
     
     setBtnText('Загрузка...')
 
     logIn(data)
-    .then(()=>{
-      setBtnText('Ok')
-      nav('/')
+    .then(()=>{      
+      setBtnText('Ok');      
+      navigate('/');
     })
     .catch(()=>{
       setBtnText('Войти')

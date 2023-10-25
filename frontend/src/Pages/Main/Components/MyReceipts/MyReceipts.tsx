@@ -30,8 +30,6 @@ export default function MyReceipts() {
       setTimeout(() => myRef.current.scrollIntoView())
     }
 
-    
-
   return (
     <>
     <Meta handelerClick = {handelerClick} />

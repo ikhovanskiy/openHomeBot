@@ -20,6 +20,6 @@ export const logIn = (data: data) => {
   })
     .then(res => res.json())
     .then(res => {
-      document.cookie = 'user=' + res.user.id
+      return document.cookie = 'user=' + res.user.id;
     }).catch((err: any) => { console.log(err) })
 }

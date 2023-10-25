@@ -41,7 +41,6 @@ passport.use(new LocalStrategy({usernameField: "email"},(email:string, password:
         .catch((err:any)=>{
             return done(err);
         });
-
         
     }        
     )
@@ -52,9 +51,10 @@ passport.use(new LocalStrategy({usernameField: "email"},(email:string, password:
     );
 }));
 
-export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-    if (req.isAuthenticated()) {
+export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {    
+    if (req.isAuthenticated()) {                
         return next();
     }
-    res.redirect("/login/");
+    res.cookie("user", "");
+    res.json({message:"Не авторизован"});
 };

@@ -1,35 +1,30 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from "react-router-dom";		
+import { useNavigate } from "react-router-dom";
 import { setProfile } from '../store/slices/profileSlice';
-								
+
 function useAutorise() {
     const navigate = useNavigate();
-    const location = useLocation();
 
-    const dispatch = useDispatch()
-
-  
-
-
-    useEffect(()=>{
-        if (document.cookie.split(' ').find(el=> el==='user=')){
-            setTimeout(()=>navigate('/login'),0)
-            return} else{
-                fetch('/api/account/profile/')
+    const dispatch = useDispatch()            
+    useEffect(() => {                
+        const cookies = document.cookie.split(' ');
+        const user = cookies.find(el => el.includes('user='));            
+        const user_value = user?.split('=')[1];        
+        if (user_value && user_value != ';') {            
+            fetch('/api/account/profile/')
                 .then(res => res.json())
-                .then(res=>{
-                  dispatch(setProfile(res))                  
+                .then(res => {                    
+                    dispatch(setProfile(res));
                 })
-                .catch(e=> {
-                    setTimeout(()=>navigate('/login'),0)
-                    console.log(e)})
-            }
-        if (location.pathname === '/login') {
-            setTimeout(()=>navigate('/'),0)
-            return
-        }
-    },[])
-} 																							
+                .catch(e => {
+                    setTimeout(() => navigate('/login/'), 0)
+                    console.log(e)
+                });
+        }else{
+            setTimeout(()=>navigate('/login/'),0);
+        }        
+    }, [])
+}
 
 export default useAutorise
